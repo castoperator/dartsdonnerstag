@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Dart-Zähler</title>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    #counter {
+      font-size: 80px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Dartpfeile geworfen</h1>
+  <div id="counter">0</div>
+
+  <script>
+    // Firebase-Projekt konfigurieren
+    const firebaseConfig = {
+      apiKey: "AIzaSyBHuQ9Q0qdzw4mZoqXRlYRWQt9P7Xj2Ybg",
+      authDomain: "dartsdonnerstag.firebaseapp.com",
+      projectId: "dartsdonnerstag",
+      storageBucket: "dartsdonnerstag.firebasestorage.app",
+      messagingSenderId: "298141318886",
+      appId: "1:298141318886:web:7bf56ec4bb7900c0f9c527",
+	  measurementId: "G-EX9PHVHYZ5"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const dartRef = db.ref('dart/count');
+
+    // Realtime Listener → bei jeder Änderung wird der Counter aktualisiert
+    dartRef.on('value', (snapshot) => {
+      const value = snapshot.val() ?? 0;
+      document.getElementById('counter').innerText = value;
+    });
+  </script>
+
+</body>
+</html>
